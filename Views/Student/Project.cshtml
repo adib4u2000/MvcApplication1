@@ -1,0 +1,102 @@
+﻿@using MvcApplication1.Helpers;
+@model MvcApplication1.Models.Project
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<script src="~/Scripts/jquery-1.5.1.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.8.17.js" type="text/javascript"></script>
+<link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+<script src="~/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
+<script src="~/Scripts/Custom/CustomValidation.js" type="text/javascript"></script>
+
+<script>
+    $().ready(function () {
+        $("#StartDate").datepicker();
+        $("#EndDate").datepicker();
+        return false;
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Project</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProiectName)
+        </div>
+        <div class="editor-field">
+            @*@Html.TextBoxFor(model => model.ProiectName, new { maxlength = 9 })*@
+            @Html.DropDownListFor(model => model.ProiectName, new SelectList(new List<string>() { "Apple", "Bat", "Cat", "Snake" }), new { onchange = "ProjectNameChange()" })
+            @Html.ValidationMessageFor(model => model.ProiectName)
+            <script>
+                function ProjectNameChange() {
+                    element = $('#ProiectName');
+                    
+                    if (element.val() == "Snake") {
+                        pmelement = $('#ProjectManager');
+                        pmelement.attr("data-val-regex","Invalid Social Security Number");
+                        pmelement.attr("data-val-regex-pattern","^\d{9}|\d{3}-\d{2}-\d{4}$"); 
+                        //alert(pmelement.attr("data-check-aditya"))
+                        alert(pmelement.attr("data-val-regex"));
+                    }
+                }
+            </script>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SSN)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SSN,  new {@class = "data-change"})
+            @Html.ValidationMessageFor(model => model.SSN)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HasBacklocks)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxStringFor(m => m.HasBacklocks)
+            @Html.ValidationMessageFor(model => model.HasBacklocks)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProjectManager)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProjectManager)
+            @Html.ValidationMessageFor(model => model.ProjectManager)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartDate)
+            @Html.ValidationMessageFor(model => model.StartDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndDate)
+            @Html.ValidationMessageFor(model => model.EndDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

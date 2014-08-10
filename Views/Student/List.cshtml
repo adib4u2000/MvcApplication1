@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MvcApplication1.Models.Student>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>@Html.CheckBox("parentCheck", new  { @class="chkParent"})</th>
+        <th>
+            @Html.DisplayNameFor(model => model.RollNbr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Class)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.CheckBox("childCheck", new { @class = "chkChild" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RollNbr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+           
+        </tr>
+    }
+
+</table>

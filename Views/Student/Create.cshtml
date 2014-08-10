@@ -1,0 +1,79 @@
+﻿@model MvcApplication1.Models.Student
+@using MvcApplication1.Helpers
+@using System
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <fieldset class="table-data">
+        <legend>Student</legend>
+        @Html.HiddenFor(model => model.RollNbr)
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.RollNbr)
+        </div>
+        <div class="editor-field">
+            @Html.MyTextBoxFor(model => model.RollNbr)
+            @Html.ValidationMessageFor(model => model.RollNbr)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.MyTextBoxFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Class)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Class)
+            @Html.ValidationMessageFor(model => model.Class)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DOB)
+        </div>
+        <div class="editor-field">
+
+            @Html.TextBoxFor(model => model.DOB, new  {@class = "data-change",placeholder="dd/mm/yyyy" })
+
+            @Html.ValidationMessageFor(model => model.DOB)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Options")
+        </div>
+        <div class="editor-field">
+            <select id="ddlEmploye" class="data-change">
+                <option>--Select--</option>
+                <option>VS</option>
+                <option>AM</option>
+                <option>KP</option>
+                <option>SM</option>
+                <option>UL</option>
+                <option>NS</option>
+            </select>
+            @Html.DropDownListFor(model => model.Friends, new SelectList(new List<string>() { "10", "15", "25", "50", "100", "1000" }, "15"), new { @class = "data-change" })
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
